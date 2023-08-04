@@ -3,44 +3,20 @@ import styles from "./top_bar.css"
 import {useState} from "react"
 import axios from 'axios';
 import React from "react";
+import { useHistory } from "react-router-dom";
+
 
 
 const Top_bar =() => {
+  const history=useHistory();
     function signin(e){
-        axios.post('http://127.0.0.1:3001/userlogin', {
-            "email" : "car@gmail.com",
-            "password": "newpassword",
-  
-    })
-        .then((response) => {
-          // Handle the response data here
-          console.log(response.data);
-        })
-        .catch((error) => {
-          // Handle any errors here
-          console.error('error aayaa '+error);
-        });
+      const data={want:true}
+        history.push('/auth',data)
     }
     
-function checking(e) {
-    axios.post('http://127.0.0.1:3001/create',{
-        "title": "vanshaj",
-        "description": "dsodsdjopasjds",
-        "topics": "Tech"
-    } ,{
-        headers: {
-          'Authorization': `Bearer ${'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMCwiZXhwIjoxNjkxMjQxNjAyfQ.xc32n4e7nf9poianzGnRY7TYBIob_Rw15LuIk9hnXk4'}` // Include the token as a Bearer token in the header
-        }
-      })
-        .then(response => {
-          // Handle the API response here
-          console.log(response.data);
-        })
-        .catch(error => {
-          // Handle any errors that occurred during the API request
-          console.error('Error:', error);
-        });
-      
+function signup() {
+      const data ={want:false};
+      history.push('/auth',data);
 }
 
 function getdata(){
@@ -73,7 +49,7 @@ function getdata(){
                 </div>
                 <div className="col-2 d-flex align-items-cente">
                     <button className="m-1" onClick={signin}>sign in </button>
-                    <button className="m-1" onClick={checking} >sign up</button>
+                    <button className="m-1" onClick={signup} >sign up</button>
                     <button className="m-1" onClick={getdata} >getallbyuser</button>
 
                 </div>

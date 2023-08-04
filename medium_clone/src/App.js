@@ -12,10 +12,10 @@ const App= () => {
     const [user, setUser] = useState("car");
     return(
         <>
+    <Router>
         <Top_bar />
-        <Router>
-      <Route exact path="/" component={Home} />
-      <Route path="/auth" component={Auth} />
+        <Route exact path="/" component={Home} />
+        <Route path="/auth" component={Auth} />
     </Router> 
       
     </>    )
