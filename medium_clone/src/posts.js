@@ -2,11 +2,7 @@ import Post from "./post.js"
 import React from "react";
 
 const Posts = ({user,setuser}) => {
-    const article ={1:["Could Gene-Edited Hens Stop the Great Chicken Massacre", "Researchers have designed a light-activated genetic kill switch to prevent male chicks from hatching", "since they have no economic value,protlife","2023-05-04","2023-05-04","prot-life",25,12,"vanshaj"],2:["Could Gene-Edited Hens Stop the Great Chicken Massacre", "Researchers have designed a light-activated genetic kill switch to prevent male chicks from hatching", "since they have no economic value,protlife","2023-05-04","2023-05-04","prot-life",25,12,"vanshaj"]};
-    const users=user;
-    console.log(users);
-    setuser('hulk');
-    console.log(user);
+    const article ={id:1, title:"Could Gene-Edited Hens Stop the Great Chicken Massacre", description:"Calico cats have a distinctive genetic trait that determines their coat colors. They are known for their striking appearance and unique personalities. Calicos are not a specific cat breed. They are members of domestic cat breeds with unique tri-color coats.", topic:"protlife",created_at:"2023-05-04",updated_at:"2023-05-04",viewCount:25,Likescount:12,author_id:"vanshaj"};
     return (
 
         <div className="container-fluid ">
@@ -14,12 +10,15 @@ const Posts = ({user,setuser}) => {
             <div className="col-12">
                 {
                     Object.entries(article).forEach(([key, value]) => {
-                        // console.log(key, value);
+                        console.log(key, value);
                     })
                 }
-                <Post />
-                <Post />
-                <Post />
+                <Post article={article} />
+                <Post article={article} />
+                <Post article={article} />
+                <Post article={article} />
+                <Post article={article} />
+                
             </div>
            
 
@@ -32,4 +31,31 @@ const Posts = ({user,setuser}) => {
 
 export default Posts;
 
-// {title,description,topic,created_at,updated_at,topics,likesCount,viewCount,authoir_id,img}
+// {title,description,topics,created_at,updated_at,likesCount,viewCount,author_id}
+// author_id
+// : 
+// 11
+// created_at
+// : 
+// "2023-08-04T22:05:09.461Z"
+// description
+// : 
+// "4"
+// id
+// : 
+// 15
+// likesCount
+// : 
+// 0
+// title
+// : 
+// "2"
+// topics
+// : 
+// "3"
+// updated_at
+// : 
+// "2023-08-04T22:05:09.461Z"
+// viewCount
+// : 
+// 1

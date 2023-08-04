@@ -4,7 +4,6 @@ import {useEffect, useState} from "react"
 import axios from 'axios';
 import React from "react";
 import { useHistory } from "react-router-dom";
-import jwtDecode from 'jwt-decode';
 
 
 
@@ -65,12 +64,12 @@ function getdata(){
                     {/* <div className="row "> */}
                         <img src={blog} className="px-1" alt="logo" style={ {height: 70 } } onClick={gohome} ></img>
                         <div className="text-center pr-4">Blogs</div>
-                        <input onChange={(e) => {setSearch_value(e.target.value); console.log(search_value)}} value={search_value}></input>
+                        <input onChange={(e) => {setSearch_value(e.target.value); console.log(search_value)}} value={search_value} type="text" className="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2" />
                     {/* </div> */}
                 </div>
-                   {(user)?(<div className="col-2 d-flex align-items-cente"><button className="m-1 but" onClick={(e)=> { e.preventDefault(); localStorage.clear(); setUser(false);}}>Log out </button>
-                    </div>): <div className="col-2 d-flex align-items-cente"><button className="m-1 but" onClick={signin}>sign in </button>
-                    <button className="m-1 but" onClick={signup} >sign up</button></div>}
+                   {(user)?(<div className="col-2 d-flex align-items-cente"><button className="m-1 btn btn-primary" type="button" onClick={(e)=> { e.preventDefault(); localStorage.clear(); setUser(false);}}>Log out </button>
+                    </div>): <div className="col-2 d-flex align-items-cente"><button className="m-1 btn btn-info" type="button" onClick={signin}>sign in </button>
+                    <button className="m-1 btn btn-success" type="button" onClick={signup} >sign up</button></div>}
 
             </div> 
             </div> 

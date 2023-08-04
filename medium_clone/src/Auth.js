@@ -45,7 +45,7 @@ const Auth = () =>{
         .then((response) => {
          // Handle the response data here
         console.log(response.data);
-        history.push('/');
+        signin(e);
         })
          .catch((error) => {
         // Handle any errors here
@@ -63,7 +63,7 @@ const Auth = () =>{
         <div className="container mt-4">
         <div className="row justify-content-center">
           <div className="col-md-6">
-            <div className="card bg-primary">
+            <div className="card bg-info">
               <div className="card-body text-center ">
                 <h1 className="card-title text-light">Sign In</h1>
                 <p className="card-text">Please enter your email and password</p>
@@ -87,7 +87,7 @@ const Auth = () =>{
                     <label for="password">Password</label>
                     <input type="password" className="form-control" id="password" placeholder="Enter your password" onChange={(e)=> {setPassword(e.target.value);}}></input>
                   </div>
-                  <button type="submit" className="btn btn-primary btn-block" onClick={signin}>Sign In</button>
+                  <button type="submit" className="btn btn-info btn-block" onClick={signin}>Sign In</button>
                 </form>
               </div>
             </div>
@@ -98,7 +98,7 @@ const Auth = () =>{
             <div className="container mt-4">
         <div className="row justify-content-center">
           <div className="col-md-6">
-            <div className="card bg-primary">
+            <div className="card bg-success">
               <div className="card-body text-center ">
                 <h1 className="card-title text-light">Sign Up</h1>
                 <p className="card-text">Please Sign up</p>
@@ -125,7 +125,7 @@ const Auth = () =>{
                     <label for="password">Password</label>
                     <input type="password" className="form-control" id="password" placeholder="Enter your password" onChange={(e)=> {setPassword(e.target.value);}}></input>
                   </div>
-                  <button type="submit" className="btn btn-primary btn-block" onClick={signup}>Sign up</button>
+                  <button type="submit" className="btn btn-success btn-block" onClick={signup}>Sign up</button>
                 </form>
               </div>
             </div>
