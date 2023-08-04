@@ -6,16 +6,20 @@ import { useState } from "react"
 import Side_column from "./side_column.js"
 import React from "react"
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Create from "./Create.js"
 
 
 const App= () => {
-    const [user, setUser] = useState("car");
+    const data=JSON.parse(localStorage.getItem('profile'));
+    const [user,setUser] = useState(data != null);
+
     return(
         <>
     <Router>
-        <Top_bar />
+        {/* <Top_bar user={user} setUser={setUser} /> */}
         <Route exact path="/" component={Home} />
         <Route path="/auth" component={Auth} />
+        <Route path="/create" component={Create} />
     </Router> 
       
     </>    )

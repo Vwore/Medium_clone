@@ -1,22 +1,39 @@
 import blog from "./img/blog_logo.png"
 import styles from "./top_bar.css"
-import {useState} from "react"
+import {useEffect, useState} from "react"
 import axios from 'axios';
 import React from "react";
 import { useHistory } from "react-router-dom";
+import jwtDecode from 'jwt-decode';
 
 
 
-const Top_bar =() => {
+const Top_bar =({user,setUser}) => {
+  const [data,setData]=useState(JSON.parse(localStorage.getItem('profile')));
+  // const [user,setUser] = useState(data != null);
   const history=useHistory();
-    function signin(e){
+  const [search_value,setSearch_value]=useState("");
+
+  function signin(e){
+    console.log('sign in');
+
       const data={want:true}
         history.push('/auth',data)
     }
     
 function signup() {
+  console.log('signup');
+
       const data ={want:false};
       history.push('/auth',data);
+}
+
+function gohome(e){
+  setData(JSON.parse(localStorage.getItem('profile')));
+  setUser(data!=null);
+  console.log('gohome');
+  e.preventDefault();
+  history.push('/')
 }
 
 function getdata(){
@@ -33,8 +50,12 @@ function getdata(){
           // Handle any errors that occurred during the API request
           console.error('Error:', error);
         });
-}
-    const [search_value,setSearch_value]=useState("");
+  }
+  useEffect(()=>{
+    setData(JSON.parse(localStorage.getItem('profile')));
+    setUser(data!=null);
+  },[])
+    
     return (
         <div>
         <div className="top-bar">
@@ -42,19 +63,17 @@ function getdata(){
             <div className="row">
                 <div className="col-10 d-flex align-items-center">
                     {/* <div className="row "> */}
-                        <img src={blog} className="px-1" alt="logo" style={ {height: 70 }} ></img>
+                        <img src={blog} className="px-1" alt="logo" style={ {height: 70 } } onClick={gohome} ></img>
                         <div className="text-center pr-4">Blogs</div>
                         <input onChange={(e) => {setSearch_value(e.target.value); console.log(search_value)}} value={search_value}></input>
                     {/* </div> */}
                 </div>
-                <div className="col-2 d-flex align-items-cente">
-                    <button className="m-1" onClick={signin}>sign in </button>
-                    <button className="m-1" onClick={signup} >sign up</button>
-                    <button className="m-1" onClick={getdata} >getallbyuser</button>
+                   {(user)?(<div className="col-2 d-flex align-items-cente"><button className="m-1 but" onClick={(e)=> { e.preventDefault(); localStorage.clear(); setUser(false);}}>Log out </button>
+                    </div>): <div className="col-2 d-flex align-items-cente"><button className="m-1 but" onClick={signin}>sign in </button>
+                    <button className="m-1 but" onClick={signup} >sign up</button></div>}
 
-                </div>
             </div> 
-            </div>
+            </div> 
             
         </div>
             <div  style={{height:50}}></div>

@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios from 'axios';
+import { useHistory } from "react-router-dom";
+import Top_bar from "./top_bar";
 
 
 const Auth = () =>{
     const [email,setEmail]=useState('');
     const [password,setPassword]=useState('');
     const [name,setName]=useState('');
+    const data=JSON.parse(localStorage.getItem('profile'));
+    const [user,setUser] = useState(data != null);
+
+    const history=useHistory();
     function signin(e){
         e.preventDefault();
 
@@ -20,6 +26,7 @@ const Auth = () =>{
         console.log(response.data);
         const data =JSON.stringify(response.data);
         localStorage.setItem('profile',data);
+        history.push('/')
         })
          .catch((error) => {
         // Handle any errors here
@@ -38,6 +45,7 @@ const Auth = () =>{
         .then((response) => {
          // Handle the response data here
         console.log(response.data);
+        history.push('/');
         })
          .catch((error) => {
         // Handle any errors here
@@ -49,6 +57,8 @@ const Auth = () =>{
     const location = useLocation();
     const state =location.state?(location.state):true;
     return(<>
+            <Top_bar user={user} setUser={setUser} />
+
         {state.want === true? (
         <div className="container mt-4">
         <div className="row justify-content-center">
@@ -130,21 +140,3 @@ export default Auth;
 
 
 
-// axios.post('http://127.0.0.1:3001/create',{
-//         "title": "vanshaj",
-//         "description": "dsodsdjopasjds",
-//         "topics": "Tech"
-//     } ,{
-//         headers: {
-//           'Authorization': `Bearer ${'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMCwiZXhwIjoxNjkxMjQxNjAyfQ.xc32n4e7nf9poianzGnRY7TYBIob_Rw15LuIk9hnXk4'}` // Include the token as a Bearer token in the header
-//         }
-//       })
-//         .then(response => {
-//           // Handle the API response here
-//           console.log(response.data);
-//           // user
-//         })
-//         .catch(error => {
-//           // Handle any errors that occurred during the API request
-//           console.error('Error:', error);
-//         });
