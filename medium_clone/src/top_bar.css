@@ -1,0 +1,7 @@
+.top-bar{
+    height: 70px;
+    display: flex;
+    align-items: center;
+    background-color: rgb(215, 6, 79);
+    
+}

@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import Top_bar from "./top_bar.js"
+import Posts from "./posts.js"
+import Add_post from "./Add_post.js"
+import { useState } from "react"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+const App= () => {
+    const [user, setUser] = useState("car");
+    return(
+        <>
+        <Top_bar />
+        <div className="container-fluid">
+             {/* <div className="row">
+             
+             </div> */}
+
+
+        <div className="row">
+                <div className="col-9">
+                <Posts user={user} setuser={setUser} />
+                </div>
+                <div className="col-3">
+                <Add_post />
+                </div>
+                
+        </div>
     </div>
-  );
+    </>    )
 }
 
 export default App;
