@@ -1,10 +1,16 @@
 import imgs from "./img/image.webp"
 import style from "./post.css"
+import React from "react";
 const Post = () => {
+
+    function handle_click(e){
+        console.log('post 1');
+    }
+
     return (
-        <div className="card mb-4 p-3" on>
+        <div className="card mb-4 p-3" >
             <div className="row">
-                    <div className="col-md-10">
+                    <div className="col-md-10" onClick={handle_click}>
                             <div className="card-body">
                                 <h5 className="card-title">Blog Post Title</h5>
                                 <p className="card-text">Brief description of the blog post content goes here. Brief description of the blog post content goes here.Brief description of the blog post content goes here.Brief description of the blog post content goes here.</p>

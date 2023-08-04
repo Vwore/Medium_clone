@@ -1,29 +1,23 @@
 import Top_bar from "./top_bar.js"
 import Posts from "./posts.js"
-import Add_post from "./Add_post.js"
+import Home from "./Home.js"
+import Auth from "./Auth.js"
 import { useState } from "react"
+import Side_column from "./side_column.js"
+import React from "react"
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
 
 const App= () => {
     const [user, setUser] = useState("car");
     return(
         <>
         <Top_bar />
-        <div className="container-fluid">
-             {/* <div className="row">
-             
-             </div> */}
-
-
-        <div className="row">
-                <div className="col-9">
-                <Posts user={user} setuser={setUser} />
-                </div>
-                <div className="col-3">
-                <Add_post />
-                </div>
-                
-        </div>
-    </div>
+        <Router>
+      <Route exact path="/" component={Home} />
+      <Route path="/auth" component={Auth} />
+    </Router> 
+      
     </>    )
 }
 
