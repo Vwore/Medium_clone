@@ -125,7 +125,8 @@ const Auth = () =>{
                     <label for="password">Password</label>
                     <input type="password" className="form-control" id="password" placeholder="Enter your password" onChange={(e)=> {setPassword(e.target.value);}}></input>
                   </div>
-                  <button type="submit" className="btn btn-success btn-block" onClick={signup}>Sign up</button>
+                  <button type="submit" className="btn btn-success
+                   btn-block" onClick={signup}>Sign up</button>
                 </form>
               </div>
             </div>

@@ -43,7 +43,6 @@ const Create=()=>{
           // Handle the API response here
           console.log(response.data);
           alert('article added succefully');
-          console.log(jwtDecode(data.auth_token));
           history.push('/');
           // user
         })

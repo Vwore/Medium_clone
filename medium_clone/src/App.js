@@ -7,6 +7,7 @@ import Side_column from "./side_column.js"
 import React from "react"
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Create from "./Create.js"
+import Article from "./Article.js"
 
 
 const App= () => {
@@ -20,6 +21,7 @@ const App= () => {
         <Route exact path="/" component={Home} />
         <Route path="/auth" component={Auth} />
         <Route path="/create" component={Create} />
+        <Route path="/article" component={Article} />
     </Router> 
       
     </>    )

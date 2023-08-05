@@ -7,8 +7,9 @@ import { useHistory } from "react-router-dom";
 
 
 
-const Top_bar =({user,setUser}) => {
+const Top_bar =({user,setUser,post_data,setPost_data}) => {
   const [data,setData]=useState(JSON.parse(localStorage.getItem('profile')));
+  const auth_name="vanshaj";
   // const [user,setUser] = useState(data != null);
   const history=useHistory();
   const [search_value,setSearch_value]=useState("");
@@ -35,15 +36,18 @@ function gohome(e){
   history.push('/')
 }
 
-function getdata(){
+
+
+function mypost(){
     axios.get('http://127.0.0.1:3001/articlebylogeduser', {
         headers: {
-          'Authorization': `Bearer ${'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMCwiZXhwIjoxNjkxMjQxNjAyfQ.xc32n4e7nf9poianzGnRY7TYBIob_Rw15LuIk9hnXk4'}` // Include the token as a Bearer token in the header
+          'Authorization': `Bearer ${data.auth_token}` // Include the token as a Bearer token in the header
         }
       })
         .then(response => {
           // Handle the API response here
-          console.log(response.data);
+          console.log('mypost');
+          setPost_data(response.data);
         })
         .catch(error => {
           // Handle any errors that occurred during the API request
@@ -63,13 +67,22 @@ function getdata(){
                 <div className="col-10 d-flex align-items-center">
                     {/* <div className="row "> */}
                         <img src={blog} className="px-1" alt="logo" style={ {height: 70 } } onClick={gohome} ></img>
-                        <div className="text-center pr-4">Blogs</div>
+                        <div className="text-center text-light fw-bold fs-5 pr-4">Blogs</div>
                         <input onChange={(e) => {setSearch_value(e.target.value); console.log(search_value)}} value={search_value} type="text" className="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2" />
                     {/* </div> */}
                 </div>
-                   {(user)?(<div className="col-2 d-flex align-items-cente"><button className="m-1 btn btn-primary" type="button" onClick={(e)=> { e.preventDefault(); localStorage.clear(); setUser(false);}}>Log out </button>
-                    </div>): <div className="col-2 d-flex align-items-cente"><button className="m-1 btn btn-info" type="button" onClick={signin}>sign in </button>
-                    <button className="m-1 btn btn-success" type="button" onClick={signup} >sign up</button></div>}
+                   {(user)?(
+                   <div className="col-2 d-flex align-items-center">
+                    <div class=" d-flex text-light text-wrap rounded pr-3 align-items-center">
+                              <p class="align-content-center">{auth_name}</p>
+                              <button className="btn" onClick={mypost}>My post</button>
+                      </div>                             
+                      <button className="m-1 btn btn-primary" type="button" onClick={(e)=> { e.preventDefault(); localStorage.clear(); setUser(false);}}>Log out </button>
+                    </div>): 
+                    <div className="col-2 d-flex align-items-cente">
+                        <button className="m-1 btn btn-info" type="button" onClick={signin}>sign in </button>
+                        <button className="m-1 btn btn-success" type="button" onClick={signup} >sign up</button>
+                    </div>}
 
             </div> 
             </div> 

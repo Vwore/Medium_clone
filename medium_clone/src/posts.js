@@ -1,23 +1,23 @@
+import axios from "axios";
 import Post from "./post.js"
-import React from "react";
+import React, { useEffect } from "react";
 
-const Posts = ({user,setuser}) => {
+const Posts = ({user,setuser,post_data,fetchallpost}) => {
     const article ={id:1, title:"Could Gene-Edited Hens Stop the Great Chicken Massacre", description:"Calico cats have a distinctive genetic trait that determines their coat colors. They are known for their striking appearance and unique personalities. Calicos are not a specific cat breed. They are members of domestic cat breeds with unique tri-color coats.", topic:"protlife",created_at:"2023-05-04",updated_at:"2023-05-04",viewCount:25,Likescount:12,author_id:"vanshaj"};
+    
+    useEffect(()=>{
+        if(post_data.length==0) {fetchallpost(); }
+    },[]);
+    console.log(post_data)
     return (
 
         <div className="container-fluid ">
         <div className="row pl-5">
             <div className="col-12">
                 {
-                    Object.entries(article).forEach(([key, value]) => {
-                        console.log(key, value);
-                    })
+                    post_data.map((elemet)=>(<Post article={elemet}/>))
                 }
-                <Post article={article} />
-                <Post article={article} />
-                <Post article={article} />
-                <Post article={article} />
-                <Post article={article} />
+                {/* <Post article={article} /> */}
                 
             </div>
            
