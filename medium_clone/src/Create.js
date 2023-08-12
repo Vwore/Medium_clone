@@ -59,7 +59,7 @@ const Create=()=>{
 
     return(
         <>
-        <Top_bar user={user} setUser={setUser}/>
+        {/* <Top_bar user={user} setUser={setUser}/> */}
         <form className="container mt-4">
       <div className="form-group row">
         <label htmlFor="title" className="col-sm-2 col-form-label">Title:</label>

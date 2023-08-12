@@ -17,7 +17,8 @@ const Posts = ({user,setuser,post_data,fetchallpost}) => {
                 {
                     post_data.map((elemet)=>(<Post article={elemet}/>))
                 }
-                {/* <Post article={article} /> */}
+                {/* <Post article={article} />
+                <Post article={article} /> */}
                 
             </div>
            

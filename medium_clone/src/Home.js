@@ -29,7 +29,7 @@ const Home=() => {
     
     return(
         <div>
-            <Top_bar user={user} setUser={setUser} post_data={data} setPost_data={setData}/>
+            <Top_bar user={user} setUser={setUser} post_data={data} setPost_data={setData} fetchAllpost={fetchAllPosts}/>
             
             <div className="container-fluid">
                 <div className="row">

@@ -5,6 +5,7 @@ import jwtDecode from 'jwt-decode';
 import axios from "axios";
 import { useHistory } from "react-router";
 const Post = ({article}) => {
+    const article_id=article.id;
     const history=useHistory();
     const jwt=JSON.parse(localStorage.getItem('profile'));
     var token="";
@@ -20,14 +21,16 @@ const Post = ({article}) => {
     }
     function deletepost(e)
     {
-        axios.delete(`http://127.0.0.1:3001/delete`,{body: {"id":article.id},headers: {Authorization: `Bearer ${token}`}})
+        // e.preventdefault();
+        console.log('delete');
+        axios.delete(`http://127.0.0.1:3001/delete`,{body: {"id":article_id},headers: {'Authorization': `Bearer ${jwt.auth_token}`}})
         .then(response => {
             console.log(response);
         })
         .catch(error => {
           console.error(error);
         });
-          }
+        }
     const truncateWords = (text, limit) => {
         const words = text.split(' ');
         if (words.length > limit) {
@@ -37,10 +40,10 @@ const Post = ({article}) => {
       };
 
     return (
-        <div className="card mb-4 p-3" id={article.id} onClick={handle_click}>
+        <div className="card mb-4 p-3" >
             <div className="row">
                     <div className="col-md-10" >
-                            <div className="card-body">
+                            <div className="card-body" id={article.id} onClick={handle_click}>
                                 <h5 className="card-title">{article.title}</h5>
                                 <p className="card-text">  {truncateWords(article.description,30)}</p>
                             </div>
