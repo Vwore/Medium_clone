@@ -1,18 +1,21 @@
 import blog from "./img/blog_logo.png"
 import styles from "./top_bar.css"
-import {useEffect, useState} from "react"
+import {useContext, useEffect, useState} from "react"
 import axios from 'axios';
 import React from "react";
 import { useHistory } from "react-router-dom";
+import { MyContext } from "./Mycontext";
 
 
 
-const Top_bar =({user,setUser,post_data,setPost_data,fetchAllpost}) => {
-  const [data,setData]=useState(JSON.parse(localStorage.getItem('profile')));
+const Top_bar =() => {
+  const [data,setData]=useState(localStorage.getItem('profile'));
   const auth_name="vanshaj";
-  // const [user,setUser] = useState(data != null);
   const history=useHistory();
   const [search_value,setSearch_value]=useState("");
+  
+
+  const {user,setUser,fetchAllPosts,setPosts,instance} = useContext(MyContext);
 
   function signin(e){
     console.log('sign in');
@@ -29,9 +32,9 @@ function signup() {
 }
 
 function gohome(e){
-  setData(JSON.parse(localStorage.getItem('profile')));
+  setData(localStorage.getItem('profile'));
   setUser(data!=null);
-  fetchAllpost();
+  if(user) {fetchAllPosts();}
   console.log('gohome');
   e.preventDefault();
   history.push('/')
@@ -67,7 +70,7 @@ function mypost(){
         .then(response => {
           // Handle the API response here
           console.log('mypost');
-          setPost_data(response.data);
+          setPosts(response.data);
         })
         .catch(error => {
           // Handle any errors that occurred during the API request
@@ -75,8 +78,8 @@ function mypost(){
         });
   }
   useEffect(()=>{
-    setData(JSON.parse(localStorage.getItem('profile')));
-    setUser(data!=null);
+    // setData(JSON.parse(localStorage.getItem('profile')));
+    // setUser(data!=null);
   },[])
     
     return (
@@ -97,7 +100,9 @@ function mypost(){
                               <p class="align-content-center ">{auth_name}</p>
                               <button className="btn" onClick={mypost}>My post</button>
                       </div>                             
-                      <button className=" btn btn-primary" type="button" onClick={(e)=> { e.preventDefault(); localStorage.clear(); setUser(false);}}>Log out </button>
+                      <button className=" btn btn-primary" type="button" onClick={(e)=> { e.preventDefault(); localStorage.clear(); 
+                          instance.delete('/logout').then(response=> {console.log('logged out '+response)}).catch(error=> { console.log(error)});
+                          setUser(false);}}>Log out </button>
                     </div>): 
                     <div className="col-2 d-flex align-items-cente">
                         <button className="m-1 btn btn-info" type="button" onClick={signin}>sign in </button>

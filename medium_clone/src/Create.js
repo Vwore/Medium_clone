@@ -1,15 +1,12 @@
 import React from "react";
 import { useHistory } from "react-router";
-import Top_bar from "./top_bar";
 import { useState } from "react";
 import axios from 'axios';
-import jwtDecode from "jwt-decode";
 
 
 const Create=()=>{
     const history=useHistory();
     const data=JSON.parse(localStorage.getItem('profile'));
-    const [user, setUser] = useState(data!=null);
 
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');

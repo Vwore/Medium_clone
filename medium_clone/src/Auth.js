@@ -1,55 +1,72 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
 import Top_bar from "./top_bar";
+import { MyContext } from "./Mycontext";
 
 
 const Auth = () =>{
     const [email,setEmail]=useState('');
     const [password,setPassword]=useState('');
     const [name,setName]=useState('');
-    const data=JSON.parse(localStorage.getItem('profile'));
-    const [user,setUser] = useState(data != null);
+    const data=localStorage.getItem('profile');
+    const {user,setUser} = useContext(MyContext);
+    const {instance}=useContext(MyContext);
 
     const history=useHistory();
+
+    const updateAuthorizationHeader = (token) => {
+      if (token) {
+        instance.defaults.headers['Authorization'] = `Bearer ${token}`;
+        console.log('compe');
+      } else {
+        delete instance.defaults.headers['Authorization'];
+      }
+    };
+    
+
     function signin(e){
         e.preventDefault();
 
-        axios.post('http://127.0.0.1:3001/userlogin', {
-        "email" : email,
-        "password": password,
+        instance.post('/login', {
+          "user":{
+            "email": email,
+            "password": password,
+            "password_confirmation": password
+        }
 
         })
         .then((response) => {
          // Handle the response data here
         console.log(response.data);
         const data =JSON.stringify(response.data);
-        localStorage.setItem('profile',data);
-        history.push('/')
+        const customHeader = response.headers.get('Authorization').split(" ")[1]; localStorage.setItem('profile',customHeader);
+        console.log(customHeader);
+        updateAuthorizationHeader(customHeader);
+        console.log(instance.defaults.headers);
+        setUser(true);
+        // history.push('/')
+        
+
         })
          .catch((error) => {
         // Handle any errors here
          console.error('error aayaa '+error);
         });
+        
     }
 
     function signup(e){
         e.preventDefault();
-        axios.post('http://127.0.0.1:3001/usercreate', {
-        "email" : email,
-        "password": password,
-        "name": name
-
-        })
-        .then((response) => {
-         // Handle the response data here
-        console.log(response.data);
-        signin(e);
-        })
-         .catch((error) => {
-        // Handle any errors here
-         console.error('error aayaa '+error);
+        const url='http://127.0.0.1:3000/signup';
+        axios.post(url,{"user":{
+      "email": email,
+      "password": password
+      }}).then(response=> { console.log(response); const customHeader = response.headers.get('Authorization').split(" ")[1]; localStorage.setItem('profile',customHeader)})
+      .catch(error => {
+      // Handle any errors that occurred during the API request
+      console.error('Error:', error);
         });
 
     }
@@ -80,11 +97,11 @@ const Auth = () =>{
                 <form>
                 
                   <div className="form-group">
-                    <label for="email">Email</label>
+                    <label htmlFor="email">Email</label>
                     <input type="email" className="form-control" id="email" placeholder="Enter your email" onChange={(e)=> {setEmail(e.target.value);}}></input>
                   </div>
                   <div className="form-group">
-                    <label for="password">Password</label>
+                    <label htmlFor="password">Password</label>
                     <input type="password" className="form-control" id="password" placeholder="Enter your password" onChange={(e)=> {setPassword(e.target.value);}}></input>
                   </div>
                   <button type="submit" className="btn btn-info btn-block" onClick={signin}>Sign In</button>
@@ -114,15 +131,15 @@ const Auth = () =>{
               <div className="card-body">
                 <form>
                 <div className="form-group">
-                    <label for="name">Name</label>
+                    <label htmlFor="name">Name</label>
                     <input type="text" className="form-control" id="text" placeholder="Enter your name" onChange={(e)=> {setName(e.target.value);}}></input>
                   </div>
                   <div className="form-group">
-                    <label for="email">Email</label>
+                    <label htmlFor="email">Email</label>
                     <input type="email" className="form-control" id="email" placeholder="Enter your email" onChange={(e)=> {setEmail(e.target.value);}}></input>
                   </div>
                   <div className="form-group">
-                    <label for="password">Password</label>
+                    <label htmlFor="password">Password</label>
                     <input type="password" className="form-control" id="password" placeholder="Enter your password" onChange={(e)=> {setPassword(e.target.value);}}></input>
                   </div>
                   <button type="submit" className="btn btn-success

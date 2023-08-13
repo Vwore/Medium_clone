@@ -3,3 +3,42 @@
     height: 100px;
     object-fit: cover;
 }
+.medium-card-header {
+    background-color: #f0f0f0; /* Adjust the color as needed */
+    padding: 0.5rem;
+    border-bottom: none;
+  }
+  
+  .author-info {
+    font-size: 0.8rem; /* Reduce font size */
+    color: #a0a0a0;
+  }
+  
+  .author-name {
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .post-date,
+  .dot-divider {
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+  }
+  
+  .card-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  
+  .card-text {
+    font-size: 1.1rem;
+    color: #4a4a4a;
+  }
+  .card-content-wrapper {
+    background-color: #ffffff; /* Adjust the color as needed */
+    padding: 0.5rem;
+  }
+  
+  .medium-card-header {
+    border-bottom: none;
+  }
