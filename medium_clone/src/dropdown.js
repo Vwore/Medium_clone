@@ -1,13 +1,15 @@
 import React, { useContext, useState } from 'react';
 import './dropdown.css'; // You'll create this CSS file later
 import { MyContext } from './Mycontext';
+import { useHistory } from 'react-router';
 
 
 const DropdownButton = () => {
     const {instance, setUser,setProfile}=useContext(MyContext);
-    const options =['User_name','create profile','logout'];
+    const options =['User_name','create profile','myprofile','Story','logout'];
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(options[0]);
+  const history=useHistory();
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
@@ -26,6 +28,14 @@ const DropdownButton = () => {
     {
       console.log('userssss')
         setProfile(false);
+    }
+    if(option=='myprofile')
+    {
+      history.push('myprofile');
+    }
+    if(option=='Story')
+    {
+      history.push('story');
     }
   };
 

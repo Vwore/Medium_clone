@@ -1,25 +1,33 @@
 import Post from "./post.js"
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { MyContext } from "./Mycontext.js";
 
-const Posts = ({catergory}) => {
-    const {fetchAllPosts,posts,user} = useContext(MyContext);
-    
+const Posts = () => {
+    const {fetchAllPosts,posts,setPosts,user,curr_cat} = useContext(MyContext);
+    const [topic_filter,setTopic_filter]=useState(false);
+    function filterpost()
+    {
+        const x=posts.filter(value => (value.topic === curr_cat));
+        setPosts(x);
+    }
     useEffect(()=>{
-        console.log(catergory);
-        if(catergory=="" || catergory=="All post")
+        console.log(curr_cat);
+        if(curr_cat=="" || curr_cat=="All post")
         {
             fetchAllPosts();
         }
-        else if(catergory=="Recommended")
+        else if(curr_cat=="Recommended")
         {
             // fetch recommended post
         }
         else
         {
+            fetchAllPosts();
+            filterpost();
             // fetch article by topic
+            
         }
-    },[catergory]);
+    },[curr_cat]);
     console.log(posts)
     return (
 
@@ -27,7 +35,7 @@ const Posts = ({catergory}) => {
         <div className="row pl-5">
             <div className="col-12">
                 {
-                    posts.map((elemet)=>(
+                    posts.map((elemet)=>( 
                     <Post article={elemet}/>))
                 }
                 {/* <Post article={article} />

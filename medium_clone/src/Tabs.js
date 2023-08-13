@@ -5,8 +5,8 @@ import { MyContext } from './Mycontext';
 
 const Tabs = () => {
   const [activeTab, setActiveTab] = useState(0);
-  const {catergory,user}=useContext(MyContext);
-  const [curr_cat,setCurr_cat]=useState("");
+  const {catergory,user,curr_cat,setCurr_cat}=useContext(MyContext);
+  
 
   const handleTabClick = (index) => {
     setActiveTab(index);

@@ -42,3 +42,15 @@
   .medium-card-header {
     border-bottom: none;
   }
+
+  .save-for-later {
+    height: 40px;
+    width: 40px;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  
+ 
+  
+  

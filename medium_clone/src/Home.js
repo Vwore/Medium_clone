@@ -15,6 +15,7 @@ const Home=() => {
     useEffect(()=>{
         const data=localStorage.getItem('profile');
         setUser(data!=null);
+        // fetchAllPosts();
         
     },[]);
     

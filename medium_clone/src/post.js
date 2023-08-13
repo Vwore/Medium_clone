@@ -1,4 +1,5 @@
 import imgs from "./img/image.webp"
+import saveforlater from './img/saveforlater.png'
 import style from "./post.css"
 import React from "react";
 import jwtDecode from 'jwt-decode';
@@ -54,21 +55,25 @@ const Post = ({article}) => {
                     <h5 className="card-title">{article.title}</h5>
                     <p className="card-text">{truncateWords(article.description, 30)}</p>
                   </div>
-                  <div className="card-footer bg-white">
-                    
+                  <div className="card-footer bg-white d-flex justify-content-between align-items-center">
+                    <div>
                     <span className="badge badge-primary topic-badge ml-2">
                       {article.topic}
                     </span>
                     <small className="text-muted ml-2">
                       {article.minutes_to_read} min read
                     </small>
-                    {token.user_id === article.author_id ? (
-                      <button className="btn ml-2 delete-button" onClick={deletepost}>
+                    </div>
+                    <div>
+                    {(true) ? (
+                      <button className="btn mr-2 delete-button" onClick={deletepost}>
                         Delete
                       </button>
                     ) : (
                       <></>
                     )}
+                    <img src={saveforlater} className="save-for-later" alt="save for later" />
+                    </div>
                   </div>
                 </div>
                 <div className="col-md-2 d-flex align-items-center justify-content-center">

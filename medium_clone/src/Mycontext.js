@@ -34,7 +34,21 @@ function MyProvider({ children }) {
         "created_at": "2023-08-13T07:24:38.774Z",
         "updated_at": "2023-08-13T07:24:38.940Z",
         "user_id": 4
-    }
+    },
+    {
+      "id": 3,
+      "title": "newwww titlee updated",
+      "topic": "gaming",
+      "description": "Cirque du Soleil is what happens when you give circus people a budge Ka is what happens when you challenge them to tell a story",
+      "author": "deepak",
+      "post_likes": 0,
+      "post_comments": 0,
+      "minutes_to_read": 1,
+      "published_at": null,
+      "created_at": "2023-08-12T20:02:34.660Z",
+      "updated_at": "2023-08-12T20:02:34.732Z",
+      "user_id": 4
+  }
 ];
 
   const instance = axios.create({
@@ -48,6 +62,8 @@ function MyProvider({ children }) {
   const [user, setUser] = useState(false);
   const [posts, setPosts] = useState([]);
   const [profile,setProfile]= useState(false);
+  const [curr_cat,setCurr_cat]=useState("");
+
   // catergory will be added in fetchallpost
   const [catergory,setCatergory]=useState([]);
   console.log('context ' +user)
@@ -68,7 +84,9 @@ function MyProvider({ children }) {
     profile,
     setProfile,
     catergory,
-    setCatergory
+    setCatergory,
+    curr_cat,
+    setCurr_cat
   };
 
   useEffect(()=> {

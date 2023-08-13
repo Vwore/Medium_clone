@@ -33,8 +33,8 @@ function signup() {
 
 function gohome(e){
   setData(localStorage.getItem('profile'));
-  setUser(data!=null);
-  if(user) {fetchAllPosts();}
+  setUser(localStorage.getItem('profile')!=null);
+  fetchAllPosts();
   console.log('gohome');
   e.preventDefault();
   console.log(catergory);
@@ -79,8 +79,9 @@ function handle_search(e)
 //         });
 //   }
   useEffect(()=>{
-    // setData(JSON.parse(localStorage.getItem('profile')));
-    // setUser(data!=null);
+    if(localStorage.getItem('profile')){
+      setUser(true);
+    }
   },[])
     
     return (
@@ -93,6 +94,7 @@ function handle_search(e)
                         <img src={blog} className="px-1" alt="logo" style={ {height: 70 } } onClick={gohome} ></img>
                         <div className="text-center text-light fw-bold fs-5 pr-4">Blogs</div>
                         <input onChange={handle_search} value={search_value} type="text" className="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2" />
+                        <button className="btn mx-3" onClick={()=> { history.push('/topic') }}> Explore topics</button>
                     {/* </div> */}
                 </div>
                    {(user)?(
