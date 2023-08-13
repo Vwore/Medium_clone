@@ -5,8 +5,7 @@ import axios from 'axios';
 
 
 const Create=()=>{
-    const history=useHistory();
-    const data=JSON.parse(localStorage.getItem('profile'));
+    const history=localStorage.getItem('profile');
 
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
@@ -33,7 +32,7 @@ const Create=()=>{
         "topics": topic
     } ,{
         headers: {
-          'Authorization': `Bearer ${data.auth_token}` // Include the token as a Bearer token in the header
+          // 'Authorization': `Bearer ${data.auth_+-+++++++token}` // Include the token as a Bearer token in the header
         }
       })
         .then(response => {

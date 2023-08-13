@@ -46,7 +46,7 @@ const Auth = () =>{
         updateAuthorizationHeader(customHeader);
         console.log(instance.defaults.headers);
         setUser(true);
-        // history.push('/')
+        history.push('/')
         
 
         })
@@ -63,7 +63,14 @@ const Auth = () =>{
         axios.post(url,{"user":{
       "email": email,
       "password": password
-      }}).then(response=> { console.log(response); const customHeader = response.headers.get('Authorization').split(" ")[1]; localStorage.setItem('profile',customHeader)})
+      }}).then(response=> {
+         console.log(response); 
+         const customHeader = response.headers.get('Authorization').split(" ")[1]; 
+         localStorage.setItem('profile',customHeader)
+         setUser(true);
+         history.push('/')
+        }
+         )
       .catch(error => {
       // Handle any errors that occurred during the API request
       console.error('Error:', error);

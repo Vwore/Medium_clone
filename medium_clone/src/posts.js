@@ -2,12 +2,24 @@ import Post from "./post.js"
 import React, { useContext, useEffect } from "react";
 import { MyContext } from "./Mycontext.js";
 
-const Posts = () => {
+const Posts = ({catergory}) => {
     const {fetchAllPosts,posts,user} = useContext(MyContext);
     
     useEffect(()=>{
-        if(posts.length===0 && user) {fetchAllPosts(); }
-    },[]);
+        console.log(catergory);
+        if(catergory=="" || catergory=="All post")
+        {
+            fetchAllPosts();
+        }
+        else if(catergory=="Recommended")
+        {
+            // fetch recommended post
+        }
+        else
+        {
+            // fetch article by topic
+        }
+    },[catergory]);
     console.log(posts)
     return (
 
@@ -15,15 +27,13 @@ const Posts = () => {
         <div className="row pl-5">
             <div className="col-12">
                 {
-                    posts.map((elemet)=>(<Post article={elemet}/>))
+                    posts.map((elemet)=>(
+                    <Post article={elemet}/>))
                 }
                 {/* <Post article={article} />
                 <Post article={article} /> */}
-                
             </div>
-           
-
-          
+            
 
         </div>
     </div>

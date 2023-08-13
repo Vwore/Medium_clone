@@ -5,7 +5,7 @@ import axios from 'axios';
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { MyContext } from "./Mycontext";
-
+import DropdownButton from "./dropdown";
 
 
 const Top_bar =() => {
@@ -15,8 +15,8 @@ const Top_bar =() => {
   const [search_value,setSearch_value]=useState("");
   
 
-  const {user,setUser,fetchAllPosts,setPosts,instance} = useContext(MyContext);
-
+  const {user,setUser,fetchAllPosts,setPosts,instance,catergory} = useContext(MyContext);
+  // setUser(true);
   function signin(e){
     console.log('sign in');
 
@@ -37,6 +37,7 @@ function gohome(e){
   if(user) {fetchAllPosts();}
   console.log('gohome');
   e.preventDefault();
+  console.log(catergory);
   history.push('/')
 }
 
@@ -61,22 +62,22 @@ function handle_search(e)
   });
 }
 
-function mypost(){
-    axios.get('http://127.0.0.1:3001/articlebylogeduser', {
-        headers: {
-          'Authorization': `Bearer ${data.auth_token}` // Include the token as a Bearer token in the header
-        }
-      } )
-        .then(response => {
-          // Handle the API response here
-          console.log('mypost');
-          setPosts(response.data);
-        })
-        .catch(error => {
-          // Handle any errors that occurred during the API request
-          console.error('Error:', error);
-        });
-  }
+// function mypost(){
+//     axios.get('http://127.0.0.1:3001/articlebylogeduser', {
+//         headers: {
+//           'Authorization': `Bearer ${data.auth_token}` // Include the token as a Bearer token in the header
+//         }
+//       } )
+//         .then(response => {
+//           // Handle the API response here
+//           console.log('mypost');
+//           setPosts(response.data);
+//         })
+//         .catch(error => {
+//           // Handle any errors that occurred during the API request
+//           console.error('Error:', error);
+//         });
+//   }
   useEffect(()=>{
     // setData(JSON.parse(localStorage.getItem('profile')));
     // setUser(data!=null);
@@ -87,7 +88,7 @@ function mypost(){
         <div className="top-bar">
             <div className="container-fluid">
             <div className="row">
-                <div className="col-10 d-flex align-items-center">
+                <div className="col-9 d-flex align-items-center">
                     {/* <div className="row "> */}
                         <img src={blog} className="px-1" alt="logo" style={ {height: 70 } } onClick={gohome} ></img>
                         <div className="text-center text-light fw-bold fs-5 pr-4">Blogs</div>
@@ -95,16 +96,10 @@ function mypost(){
                     {/* </div> */}
                 </div>
                    {(user)?(
-                   <div className="col-2 d-flex align-items-center">
-                    <div class=" d-flex text-light text-wrap rounded pr-3 align-items-center">
-                              <p class="align-content-center ">{auth_name}</p>
-                              <button className="btn" onClick={mypost}>My post</button>
-                      </div>                             
-                      <button className=" btn btn-primary" type="button" onClick={(e)=> { e.preventDefault(); localStorage.clear(); 
-                          instance.delete('/logout').then(response=> {console.log('logged out '+response)}).catch(error=> { console.log(error)});
-                          setUser(false);}}>Log out </button>
+                   <div className="col-3 d-flex align-items-center justify-content-center">
+                    <DropdownButton />                         
                     </div>): 
-                    <div className="col-2 d-flex align-items-cente">
+                    <div className="col-2 d-flex justify-content-end">
                         <button className="m-1 btn btn-info" type="button" onClick={signin}>sign in </button>
                         <button className="m-1 btn btn-success" type="button" onClick={signup} >sign up</button>
                     </div>}
