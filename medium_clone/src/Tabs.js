@@ -16,7 +16,7 @@ const Tabs = () => {
   const [tabItems,setTabItems] = useState([]);
 
   useEffect(()=>{
-    var x=['All post'];
+    var x=['All post','Top post'];
     if(user){
       x.push('Recommended');
     }

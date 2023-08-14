@@ -1,19 +1,20 @@
 import React from 'react';
 
 function StoryList({ stories }) {
+  const title=stories.title;
+  const description=stories.description;
+  function handclick(){
+    
+  }
   return (
     <div>
-      {stories.map((story) => (
-        <div key={story.id} className="story">
-          <h2>{story.title}</h2>
-          <p>{story.description}</p>
-          <p>Author: {story.author}</p>
-          <p>Likes: {story.post_likes}</p>
-          <p>Comments: {story.post_comments}</p>
-          <p>Minutes to Read: {story.minutes_to_read}</p>
+      {
+        <div key={stories.id} className="story" onClick={handclick}>
+          <h2>{stories.title}</h2>
+          <p>{stories.description}</p>
           {/* Render other story details here */}
         </div>
-      ))}
+      }
     </div>
   );
 }

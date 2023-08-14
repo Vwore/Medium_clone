@@ -5,7 +5,7 @@ import axios from 'axios';
 
 
 const Create=()=>{
-    const history=localStorage.getItem('profile');
+    const history=useHistory();
 
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
@@ -50,6 +50,7 @@ const Create=()=>{
        // For example, save the article to the backend or display it on the screen
        console.log('Title:', title);
        console.log('Body:', body);
+       history.push('/');
      };
 
 

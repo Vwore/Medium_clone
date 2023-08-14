@@ -12,6 +12,9 @@ const Post = ({article}) => {
     var token="";
     const date_article= new Date(article.created_at).toLocaleDateString("en-US", {month: "long", day: "numeric" });
 
+    function saveforlater_click(e){
+      console.log('save for later');
+    }
 
     function handle_click(e){
         console.log(e.currentTarget.id);
@@ -72,7 +75,7 @@ const Post = ({article}) => {
                     ) : (
                       <></>
                     )}
-                    <img src={saveforlater} className="save-for-later" alt="save for later" />
+                    <img src={saveforlater} className="save-for-later" alt="save for later" onClick={saveforlater_click} />
                     </div>
                   </div>
                 </div>

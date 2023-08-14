@@ -20,6 +20,10 @@ const Posts = () => {
         {
             // fetch recommended post
         }
+        else if(curr_cat=="Top post")
+        {
+            //  fetch top post
+        }
         else
         {
             fetchAllPosts();

@@ -52,6 +52,16 @@ const Article = () => {
   "user_id": 4}
   const { title, topic, description, author, post_likes, post_comments, minutes_to_read, created_at } = article;
 
+  function increase_like()
+  {
+    console.log('increase like');
+  }
+
+  function increase_comment()
+  {
+    console.log('increase comment');
+  }
+
   return (
     <div className="container mt-5">
       <div className="card">
@@ -71,8 +81,8 @@ const Article = () => {
           </div>
           <p className="card-text mt-3">{description}</p>
           <div>
-              <span className="m-3 text-muted rounded-pill">{post_likes} likes</span>
-              <span className="text-muted">{post_comments} comments</span>
+              <span className="m-3 text-muted rounded-pill click-cursor" onClick={increase_like}>like {post_likes}</span>
+              <span className="text-muted" onClick={increase_comment}>comment {post_comments}</span>
             </div>
         </div>
       </div>
