@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Top_bar from './top_bar';
 import { useHistory, useLocation} from 'react-router-dom';
 import saveforlater from './img/saveforlater.png'
+import Listdrop from './addtolist';
 
 const Article = () => {
   const history=useHistory();
@@ -15,6 +16,7 @@ const Article = () => {
   const[likecount,setLikecount]=useState(0);
   const[isedit,setIsedit]=useState(false);
   const[issaved,setIssaved]=useState(false);
+  const[addlist,setAddlist]=useState(false);
 
   const data=localStorage.getItem('article');
   const data1=JSON.parse(data);
@@ -192,6 +194,7 @@ const Article = () => {
               {!issaved?<img src={saveforlater} className="save-for-later" alt="save for later" value={id} onClick={saveforlater_click} />:<></>}
               {isdelete?<button className='btn mx-2 ' onClick={handleedit}>Edit</button>:<></>}
               {isdelete?<button className='btn mx-2 ' onClick={handledelete}>delete</button>:<></>}
+              {!addlist?<button className='btn mx-2 ' onClick={()=> {setAddlist(true)}}>add to a list</button>:<Listdrop articleid={id} setislist={setAddlist}/>}
             </div>
         </div>
       </div>

@@ -72,17 +72,21 @@ const userlist=[
 ]
 
 const list=[
-  [1,1,'saved',[1]]
+
+  [1,1,'car',[3,9]],
+  [2,1,'saved',[]],
+  [3,1,'bike',[12,13]]
 ]
 
 const App= () => {     
     
     useEffect(()=> {
         // localStorage.setItem('article',JSON.stringify(response));
-        localStorage.setItem('users',JSON.stringify(userlist));
+        // localStorage.setItem('users',JSON.stringify(userlist));
         // localStorage.setItem('curuser',null);
         // localStorage.setItem('draft','[]');
         // localStorage.setItem('list',JSON.stringify(list));
+        // console.log(JSON.stringify(list));
 
     },[]);
     return(

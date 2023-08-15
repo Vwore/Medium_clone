@@ -16,7 +16,7 @@ const DropdownButton = () => {
 
   const handleOptionClick = (option) => {
     
-
+    
     setSelectedOption(option);
     setIsOpen(false);
     if(option=='logout')
@@ -25,6 +25,7 @@ const DropdownButton = () => {
         // instance.delete('/logout').then(response=> {console.log('logged out '+response)}).catch(error=> { console.log(error)});
         setUser(false);
         localStorage.setItem('curuser',"null");
+        history.push('/')
     }
     if(option=='create profile')
     {

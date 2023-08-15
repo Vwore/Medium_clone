@@ -14,7 +14,7 @@ const Top_bar =() => {
   const history=useHistory();
   const [search_value,setSearch_value]=useState("");
 
-  const {user,setUser,fetchAllPosts,posts,setPosts,instance,catergory} = useContext(MyContext);
+  const {user,setUser,fetchAllPosts,posts,setPosts,instance,catergory,getlist} = useContext(MyContext);
 
   function signin(e){
     console.log('sign in');
@@ -37,10 +37,10 @@ function gohome(e){
   e.preventDefault();
   console.log(catergory);
 
-  instance.get('/articles').then(response=> {console.log(response)}).then(response=> console.log(response)).catch(error => console.log(error));
-  instance.get('/top_posts').then(response=> {console.log(response)}).then(response=> console.log(response)).catch(error => console.log(error));
-  instance.get('/profiles/my_profile').then(response=> {console.log(response)}).then(response=> console.log(response)).catch(error => console.log(error));
-
+  // instance.get('/articles').then(response=> {console.log(response)}).then(response=> console.log(response)).catch(error => console.log(error));
+  // instance.get('/top_posts').then(response=> {console.log(response)}).then(response=> console.log(response)).catch(error => console.log(error));
+  // instance.get('/profiles/my_profile').then(response=> {console.log(response)}).then(response=> console.log(response)).catch(error => console.log(error));
+  getlist();
 
   history.push('/')
 }

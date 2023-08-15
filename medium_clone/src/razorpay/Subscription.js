@@ -1,6 +1,11 @@
 import Top_bar from "../top_bar"
 import React from "react";
+import Stripe from "../stripe/Stripe";
+import { useState } from "react";
 const Subscription =() => {
+
+    const [showForm, setShowForm] = useState(false)
+
     return(
         <>
         <Top_bar />
@@ -13,7 +18,7 @@ const Subscription =() => {
                 <div>
                 3 posts per day - $3
                 </div>
-                <button>subscribe</button>
+                {showForm? <Stripe />:<button onClick={()=>setShowForm(true)}>subscribe</button>}
             </div>
             <div className="p-2 m-3 align-items-center text-light bg-dark rounded">
                 gold

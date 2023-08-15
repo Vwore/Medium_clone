@@ -52,15 +52,27 @@ const draftStories = [
 
 
 
+
 function StoryPage() {
+
+  const [newlist,setNewlist] =useState("");
+
   const [activeTab, setActiveTab] = useState('drafts');
-  const {user} = useContext(MyContext);
+
+  const {user,list,getlist} = useContext(MyContext);
+
   const id=localStorage.getItem('curuser');
+
   const data=JSON.parse(localStorage.getItem('draft'));
+
   const data1=data.filter((element)=> (element[4]==id));
+
   const allarticle=JSON.parse(localStorage.getItem('article'));
-  const list=JSON.parse(localStorage.getItem('list'));
-  const savedlist=list.filter(value=> (value[2]=='saved' && value[1]==id));
+
+  const list1=JSON.parse(localStorage.getItem('list'));
+
+  const savedlist=list1.filter(value=> (value[2]=='saved' && value[1]==id));
+
   console.log(savedlist);
   var saveforlater=[];
   console.log(savedlist[0]);
@@ -69,6 +81,30 @@ function StoryPage() {
     saveforlater.push(allarticle[index]);
   });
   console.log(saveforlater);
+  console.log(list);
+
+  function addnewlist(){
+    if(newlist=="")
+    {
+      alert('enter new list');
+    }  
+    else
+    {var x=JSON.parse(localStorage.getItem('list'));
+      x.push([x[x.length-1][0]+1,id,newlist,[]]);
+      localStorage.setItem('list',JSON.stringify(x));
+      getlist();
+      setNewlist('');}
+  }
+
+  function removeelement(e){
+    e.preventDefault();;
+    const index=list1.findIndex((value)=> (value[2]=='saved' && value[1]==id));
+    const newlist=savedlist[0][3].filter((value)=> (value!=e.target.value));
+    console.log(newlist);
+    list1[index][3]=newlist;
+    localStorage.setItem('list',JSON.stringify(list1));    
+    window.location.reload();
+}
 
   return (
     <div>
@@ -78,8 +114,16 @@ function StoryPage() {
         <button onClick={() => setActiveTab('published')}>Lists</button>
       </div>
       <div className='container-fluid px-5'>{ activeTab === 'drafts' ? data1.map((value)=> (<StoryList stories={value}/>)) : <>
-      <h1>saved for later</h1>
-        {saveforlater.map(value=> (<Post data={value} />))}
+      <div>
+        <p>Add new list</p>
+        <div>
+          <input onChange={(e)=>{ setNewlist(e.target.value)}}></input>
+          <button onClick={addnewlist}>+</button>
+        </div>
+      </div>
+      <p className='bg-dark display-4 text-light m-2'>saved for later</p>
+        {saveforlater.map(value=> (<><Post data={value} /> <button className='btn' value={value[0]} onClick={removeelement}>remove</button></>))}
+      {list.map(value => (<><p className='bg-dark display-4 text-light m-2'>{value[0]}</p>{value[1].map(value=> (<Post data={value}/>))}</>))}
       </>}
         </div>
     </div>

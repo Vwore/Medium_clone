@@ -63,12 +63,40 @@ function MyProvider({ children }) {
   const [posts, setPosts] = useState([]);
   const [profile,setProfile]= useState(false);
   const [curr_cat,setCurr_cat]=useState("");
+  const [list,setList]=useState();
 
   // catergory will be added in fetchallpost
   const [catergory,setCatergory]=useState([]);
   console.log('context ' +user)
   // const x = localStorage.getItem('profile');
   // if(x){setUser(true);}
+
+  function getlist(){
+    // set list here
+    const id=localStorage.getItem('curuser');
+    const data=JSON.parse(localStorage.getItem('list'));
+    const data2=data.filter((value)=> (id==value[1] && value[2]!='saved'));
+    const article=JSON.parse(localStorage.getItem('article'));
+    
+    var curlist=[];
+    data2.map(value=> {
+        var data=[value[2],[],value[0]];
+        value[3].map(element=> {
+            const index=article.findIndex(x=> (element==x[0]));
+            data[1].push(article[index]);
+        });
+        curlist.push(data);
+    })
+    setList(curlist);
+  }
+
+  function updatelist(listid,articleid){
+    const data=JSON.parse(localStorage.getItem('list'));
+    const index=data.findIndex((value=> (value[0]==listid)));
+    data[index][3].push((Number)(articleid));
+    localStorage.setItem('list',JSON.stringify(data));
+    getlist();
+  }
 
   const fetchAllPosts = async () => {
     console.log('fetch');
@@ -77,6 +105,8 @@ function MyProvider({ children }) {
     setPosts(response);
   
   };
+
+
 
   const contextValue = {
     user,
@@ -91,11 +121,19 @@ function MyProvider({ children }) {
     setCatergory,
     curr_cat,
     setCurr_cat,
+    getlist,
+    list,
+    updatelist
   };
 
   useEffect(()=> {
+    
     setUser((localStorage.getItem('curuser'))!='null')   
     console.log(localStorage.getItem('curuser')!='null');  
+    if(localStorage.getItem('curuser')!='null'){
+      console.log('list mafe');
+      getlist();
+    }
     var x=[];
     const data=JSON.parse(localStorage.getItem('article'))
     data.map((element)=>{  

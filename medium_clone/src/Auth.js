@@ -13,7 +13,7 @@ const Auth = () =>{
     const [bio,setBio]=useState('');
     const data=localStorage.getItem('profile');
     const {user,setUser} = useContext(MyContext);
-    const {instance}=useContext(MyContext);
+    const {instance,getlist}=useContext(MyContext);
 
     const history=useHistory();
 
@@ -65,6 +65,7 @@ const Auth = () =>{
         {
           localStorage.setItem('curuser',x[0][0])
           setUser(true);
+          getlist();
           history.push('/');    
         }
         else{
