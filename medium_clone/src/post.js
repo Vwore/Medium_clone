@@ -5,7 +5,21 @@ import React from "react";
 import jwtDecode from 'jwt-decode';
 import axios from "axios";
 import { useHistory } from "react-router";
-const Post = ({article}) => {
+const Post = ({data}) => {
+    var article={
+      "id":data[0],
+      "title":data[1],
+      "topic": data[2],
+      "description": data[3],
+      "author": data[4],
+      "post_likes": data[5],
+      "post_comments": data[6],
+      "minutes_to_read": data[7],
+      "published_at": data[8],
+      "created_at": data[9],
+      "updated_at": data[10],
+      "user_id": data[11]
+  }
     const article_id=article.id;
     const history=useHistory();
     const jwt=localStorage.getItem('profile');
@@ -17,9 +31,9 @@ const Post = ({article}) => {
     }
 
     function handle_click(e){
-        console.log(e.currentTarget.id);
-        const data =e.currentTarget.id;
-        history.push('/article',data)
+        const encodedId = encodeURIComponent(e.currentTarget.id);
+        history.push(`/article?id=${encodedId}`);
+    
     }
     function deletepost(e)
     {
@@ -68,14 +82,6 @@ const Post = ({article}) => {
                     </small>
                     </div>
                     <div>
-                    {(true) ? (
-                      <button className="btn mr-2 delete-button" onClick={deletepost}>
-                        Delete
-                      </button>
-                    ) : (
-                      <></>
-                    )}
-                    <img src={saveforlater} className="save-for-later" alt="save for later" onClick={saveforlater_click} />
                     </div>
                   </div>
                 </div>

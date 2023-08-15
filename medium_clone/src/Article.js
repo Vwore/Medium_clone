@@ -1,60 +1,100 @@
-// import React, { useEffect, useState } from "react";
-// import { useLocation } from "react-router";
-// import axios from "axios";
-// const Article=({id})=>{
-//     const location = useLocation();
-//     const state =location.state;
-//     const local=JSON.parse(localStorage.getItem('profile'));
-//     const [data,setData]=useState(null);
-//     let token;
-
-//   useEffect(()=> {
-//     if(local) {
-//       token = local.auth_token;
-//       console.log('token is '+ token+' STATE IS '+state);
-//       axios.post("http://127.0.0.1:3001/byid",{
-//         "id": state
-//       } ,{
-//           headers: {
-//             'Authorization': `Bearer ${token}`,
-//           }
-          
-//         }).then(response => {
-//           console.log(response);
-//           setData(response.data);
-//           console.log(data);
-//         }).catch(error => {
-//           console.error(error);
-//         });
-//   }
-//   },[]);
-  
-//     return(<><h1>{data && data.title}</h1>
-//     <h3>{data && data.description}</h3></>);
-// }
-
-// export default Article;
-
-import React from 'react';
+import React, { useState } from 'react';
+import Top_bar from './top_bar';
+import { useHistory, useLocation} from 'react-router-dom';
+import saveforlater from './img/saveforlater.png'
 
 const Article = () => {
-  const article={"id": 1,
-  "title": "Spectacle and Story — Thoughts on Cirque du Soleil’s Ka",
-  "topic": "new topic",
-  "description": "Cirque du Soleil is what happens when you give circus people a budge Ka is what happens when you challenge them to tell a story.  They started in Baie-Sant-Paul, Quebec, with a street show, in the early eighties, and are now a global phenomenon.In Vegas, Cirque du Soleil does six different shows in purpose-built theaters. They include a homage to the Beatles, a homage to Michael Jackson, Mad Apple in New York, New York, and of course, the original Mystere. A friend advised us to choose O or Ka, and we picked Ka because it was the closest to our hotel. The Ka theater is tucked away in the back of the MGM Grand resort, behind the casino floor.It has been running since 2005 and on the topic of budget? It has the distinction of being the most expensive theatrical production in history. It also has the sad distinction of the first on stage fatality in Cirque’s history. In 2013, during the final battle scene, a 31-year-old acrobat named Sarah Guillot-Gayard, fell to her death when her safety line failed. The accident was investigated and presumably precautions were taken. There have been no other deaths. Injuries, however, come with the territory of circus work.Its worth remembering that these performers are doing something dangerous, five days a week, twice a night.",
-  "author": "deepak",
-  "post_likes": 0,
-  "post_comments": 0,
-  "minutes_to_read": 1,
-  "published_at": null,
-  "created_at": "2023-08-12T20:02:34.660Z",
-  "updated_at": "2023-08-12T20:02:34.732Z",
-  "user_id": 4}
+  const history=useHistory();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const id = queryParams.get('id');
+  var isdelete=false;
+  console.log(id);
+
+  const[liked,setLiked]=useState(false);
+  const[likecount,setLikecount]=useState(0);
+  const[isedit,setIsedit]=useState(false);
+  const[issaved,setIssaved]=useState(false);
+
+  const data=localStorage.getItem('article');
+  const data1=JSON.parse(data);
+  const data2=data1.filter(value=> (value[0]==id));
+  console.log(data2)
+
+  // editform
+  const [title2, setTitle2] = useState(data2[0][1]);
+  const [body, setBody] = useState(data2[0][3]);
+  const [topic2, setTopic2] = useState(data2[0][2]);
+  const handleTitleChange = (event) => {
+    event.preventDefault();
+    setTitle2(event.target.value);
+  };
+
+  const handleBodyChange = (event) => {
+    event.preventDefault();
+    setBody(event.target.value);
+  };
+  
+  const handleTopicChange = (event) => {
+    event.preventDefault();
+   setTopic2(event.target.value);
+ };
+
+ function calculateReadingTime(text, wordsPerMinute = 100) {
+    const words = text.split(' ').length;
+    const readingTimeInMinutes = words / wordsPerMinute;
+
+    return Math.ceil(readingTimeInMinutes); // Round up to the nearest whole minute
+  }
+  
+  //cur date time
+  const currentDateTime = new Date();
+
+  // Formatting options
+  const options = {
+    year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit', second: '2-digit',
+    hour12: false
+  };
+
+  const formattedDateTime = currentDateTime.toLocaleString('en-US', options);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const index= data1.findIndex(value => value[0]==id);
+
+    const curdat=[(data1[index][0]),title2,topic2,body,data1[index][4],data1[index][5],data1[index][6],calculateReadingTime(body),data1[index][8],data1[index][8],formattedDateTime,data1[index][11]];
+    data1[index]=curdat;
+    localStorage.setItem('article',JSON.stringify(data1));
+    setIsedit(false);
+  };
+
+  isdelete=(data2[0][11]==localStorage.getItem('curuser'));
+  const article={"id": data2[0][0],
+  "title": data2[0][1],
+  "topic": data2[0][2],
+  "description": data2[0][3],
+  "author": data2[0][4],
+  "post_likes": data2[0][5],
+  "post_comments": data2[0][6],
+  "minutes_to_read": data2[0][7],
+  "published_at": data2[0][8],
+  "created_at": data2[0][9],
+  "updated_at": data2[0][10],
+  "user_id": data2[0][11]};
+  console.log(article);
+
   const { title, topic, description, author, post_likes, post_comments, minutes_to_read, created_at } = article;
 
   function increase_like()
   {
-    console.log('increase like');
+    if(liked){
+      setLikecount(likecount-1);
+    }
+    else{
+      setLikecount(likecount+1);
+    }
+    setLiked(!liked);
   }
 
   function increase_comment()
@@ -62,13 +102,79 @@ const Article = () => {
     console.log('increase comment');
   }
 
+  function handledelete(){
+    const index= data1.findIndex(value => value[0]==id);
+    console.log(index);
+    data1.splice(index,1);
+    console.log(data1);
+    localStorage.setItem('article',JSON.stringify(data1));
+    history.push('/');
+  }
+  function handleedit(){
+    setIsedit(true);
+  }
+
+  function saveforlater_click()
+  {
+      const data=JSON.parse(localStorage.getItem('list'));
+      const curuser=localStorage.getItem('curuser');
+      const index=data.findIndex(value=> (value[2]=='saved' && value[1] == curuser));
+      data[index][3].push((Number)(id));
+      localStorage.setItem('list',JSON.stringify(data));
+      setIssaved(true);
+  }
+
   return (
-    <div className="container mt-5">
+    <>
+    <Top_bar />
+    {isedit?<form className="container mt-4">
+      <div className="form-group row">
+        <label htmlFor="title" className="col-sm-2 col-form-label">Title:</label>
+        <div className="col-sm-10">
+          <input
+            type="text"
+            id="title"
+            className="form-control"
+            value={title2}
+            onChange={handleTitleChange}
+            required
+          />
+        </div>
+      </div>
+      <div className="form-group row mb-3"> {/* Add mb-3 class here */}
+        <label htmlFor="topic" className="col-sm-2 col-form-label">Topic:</label>
+        <div className="col-sm-10">
+          <input
+            type="text"
+            id="topic"
+            className="form-control"
+            value={topic2}
+            onChange={handleTopicChange}
+            required
+          />
+        </div>
+      </div>
+      <div className="form-group">
+        <label htmlFor="body">Body:</label>
+        <textarea
+          id="body"
+          className="form-control"
+          value={body}
+          onChange={handleBodyChange}
+          rows={10} // Specify the number of rows for the textarea
+          required
+        />
+      </div>
+      <button className="btn btn-primary" type="submit" onClick={handleSubmit}>
+        Submit
+      </button>
+    </form>:
+    <div className="container ">
       <div className="card">
         <div className="card-body">
           <h1 className="card-title" style={{fontSize:40}}>{title}</h1>
           <div className='d-flex'>
-          <span className='m-2'>by:{author}</span>
+          <span className='m-2 display'>by:{author}</span>
           <button className='btn bg-grey-500 bg-opacity-1 btn-sm'>Follow</button>
           </div>
           <div className="d-flex justify-content-between align-items-center">
@@ -81,12 +187,18 @@ const Article = () => {
           </div>
           <p className="card-text mt-3">{description}</p>
           <div>
-              <span className="m-3 text-muted rounded-pill click-cursor" onClick={increase_like}>like {post_likes}</span>
+              {liked?<span className="m-3 hover-effect  text-muted rounded-pill click-cursor" onClick={increase_like}>liked {likecount}</span>:<span className="m-3 text-muted rounded-pill click-cursor" onClick={increase_like}>like {post_likes}</span>}
               <span className="text-muted" onClick={increase_comment}>comment {post_comments}</span>
+              {!issaved?<img src={saveforlater} className="save-for-later" alt="save for later" value={id} onClick={saveforlater_click} />:<></>}
+              {isdelete?<button className='btn mx-2 ' onClick={handleedit}>Edit</button>:<></>}
+              {isdelete?<button className='btn mx-2 ' onClick={handledelete}>delete</button>:<></>}
             </div>
         </div>
       </div>
-    </div>
+
+    </div>}
+
+    </>
   );
 };
 

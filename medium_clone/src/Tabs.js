@@ -5,12 +5,14 @@ import { MyContext } from './Mycontext';
 
 const Tabs = () => {
   const [activeTab, setActiveTab] = useState(0);
-  const {catergory,user,curr_cat,setCurr_cat}=useContext(MyContext);
+  const {catergory,user,curr_cat,setCurr_cat,fetchAllPosts}=useContext(MyContext);
   
 
   const handleTabClick = (index) => {
-    setActiveTab(index);
-    setCurr_cat(tabItems[index]);
+    if(tabItems[index]!='..')
+    {setActiveTab(index);
+    fetchAllPosts();
+    setCurr_cat(tabItems[index]);}
   };
 
   const [tabItems,setTabItems] = useState([]);
@@ -20,7 +22,12 @@ const Tabs = () => {
     if(user){
       x.push('Recommended');
     }
-    x=[...x,...catergory]
+    catergory.map((element)=> {
+      if(x.length<5){
+        x.push(element)
+      }
+    })
+    x.push('..');
      setTabItems([...x]);
     },[catergory,user]);
 

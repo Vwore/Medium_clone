@@ -6,17 +6,16 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { MyContext } from "./Mycontext";
 import DropdownButton from "./dropdown";
+import Posts from "./posts";
 
 
 const Top_bar =() => {
   const [data,setData]=useState(localStorage.getItem('profile'));
-  const auth_name="vanshaj";
   const history=useHistory();
   const [search_value,setSearch_value]=useState("");
-  
 
-  const {user,setUser,fetchAllPosts,setPosts,instance,catergory} = useContext(MyContext);
-  // setUser(true);
+  const {user,setUser,fetchAllPosts,posts,setPosts,instance,catergory} = useContext(MyContext);
+
   function signin(e){
     console.log('sign in');
 
@@ -33,33 +32,26 @@ function signup() {
 
 function gohome(e){
   setData(localStorage.getItem('profile'));
-  setUser(localStorage.getItem('profile')!=null);
   fetchAllPosts();
   console.log('gohome');
   e.preventDefault();
   console.log(catergory);
+
+  instance.get('/articles').then(response=> {console.log(response)}).then(response=> console.log(response)).catch(error => console.log(error));
+  instance.get('/top_posts').then(response=> {console.log(response)}).then(response=> console.log(response)).catch(error => console.log(error));
+  instance.get('/profiles/my_profile').then(response=> {console.log(response)}).then(response=> console.log(response)).catch(error => console.log(error));
+
+
   history.push('/')
 }
 
 function handle_search(e)
 {
-  console.log(data.auth_token)
+  const search=(e.target.value).toLowerCase();
   setSearch_value(e.target.value);  
-  axios.get('http://127.0.0.1:3001/searchbyauthor',{
-    headers: {
-      'Authorization': `Bearer ${data.auth_token}` // Include the token as a Bearer token in the header
-    },
-    params:{
-      "authorname": e.target.value
-    }
-  }).then(response => {
-    // Handle the API response here
-    console.log(response);
-  })
-  .catch(error => {
-    // Handle any errors that occurred during the API request
-    console.error('Error:', error);
-  });
+  const data=JSON.parse(localStorage.getItem('article'));
+  const data2=data.filter((value)=>(((value[1].toLowerCase()).includes(search)) || ((value[2].toLowerCase()).includes(search)) || ((value[3].toLowerCase()).includes(search)) || ((value[4].toLowerCase()).includes(search))));
+  setPosts(data2);
 }
 
 // function mypost(){
@@ -90,12 +82,11 @@ function handle_search(e)
             <div className="container-fluid">
             <div className="row">
                 <div className="col-9 d-flex align-items-center">
-                    {/* <div className="row "> */}
                         <img src={blog} className="px-1" alt="logo" style={ {height: 70 } } onClick={gohome} ></img>
                         <div className="text-center text-light fw-bold fs-5 pr-4">Blogs</div>
                         <input onChange={handle_search} value={search_value} type="text" className="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2" />
                         <button className="btn mx-3" onClick={()=> { history.push('/topic') }}> Explore topics</button>
-                    {/* </div> */}
+                        <button className="btn mx-3" onClick={()=> { history.push('/subscribe') }}> Subscribe</button>
                 </div>
                    {(user)?(
                    <div className="col-3 d-flex align-items-center justify-content-center">

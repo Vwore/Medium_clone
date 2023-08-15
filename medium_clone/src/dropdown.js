@@ -5,20 +5,26 @@ import { useHistory } from 'react-router';
 
 
 const DropdownButton = () => {
-    const {instance, setUser,setProfile}=useContext(MyContext);
-    const options =['User_name','create profile','myprofile','Story','logout'];
+    const {instance, setUser,setProfile,setCuruser}=useContext(MyContext);
+    const data=JSON.parse(localStorage.getItem('users'));
+    const id=localStorage.getItem('curuser');
+    const index= data.findIndex(value => value[0]==id);
+    const options =[data[index][1],'myprofile','Myarticles','logout'];
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(options[0]);
   const history=useHistory();
 
   const handleOptionClick = (option) => {
+    
+
     setSelectedOption(option);
     setIsOpen(false);
     if(option=='logout')
     {
-        localStorage.clear(); 
-        instance.delete('/logout').then(response=> {console.log('logged out '+response)}).catch(error=> { console.log(error)});
+         
+        // instance.delete('/logout').then(response=> {console.log('logged out '+response)}).catch(error=> { console.log(error)});
         setUser(false);
+        localStorage.setItem('curuser',"null");
     }
     if(option=='create profile')
     {
@@ -33,7 +39,7 @@ const DropdownButton = () => {
     {
       history.push('myprofile');
     }
-    if(option=='Story')
+    if(option=='Myarticles')
     {
       history.push('story');
     }

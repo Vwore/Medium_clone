@@ -1,24 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Top_bar from '../top_bar';
+import Post from '../post';
 
-const profileData = {
-  // Your profile data object here
-  "id": 1,
-    "bio": "this is my bio. I am best",
-    "name": "deepak patil",
-    "user_id": 36,
-    "created_at": "2023-08-13T11:12:37.710Z",
-    "updated_at": "2023-08-13T11:12:37.710Z",
-    "interested_topics": [
-        "technology",
-        "sports",
-        "gym",
-        "game"
-    ],
-    "save_for_later": [
-        2,5,6
-    ]
-};
+
 
 const profileStyles = {
   display: 'flex',
@@ -63,6 +47,29 @@ const listItemStyles = {
 };
 
 function Myprofile() {
+  const[topic,setTopic]=useState("");
+
+  const data=JSON.parse(localStorage.getItem('users'));
+  const id=localStorage.getItem('curuser');
+  const index= data.findIndex(value => value[0]==id);
+  const data1=JSON.parse(localStorage.getItem('article'));
+  const articles=data1.filter((element)=>(id==element[11]));
+
+  const profileData = {
+    // Your profile data object here
+    "id": data[index][0],
+      "bio": data[index][4],
+      "name": data[index][1],
+      "interested_topics": data[index][5],
+      
+  };
+
+  function handleclick(){
+      data[index][5].push(topic);
+      localStorage.setItem('users',JSON.stringify(data));
+      window.location.reload();
+    }
+    
   return (
     <>
       <Top_bar />
@@ -78,17 +85,11 @@ function Myprofile() {
               </li>
             ))}
           </ul>
+          <input className='' value={topic} onChange={(e)=> {setTopic(e.target.value)}}></input>
+          <button className='btn-sm' onClick={handleclick}>+</button>
         </div>
-        <div style={sectionStyles}>
-          <h2 style={headingStyles}>Saved Articles</h2>
-          <ul style={listStyles}>
-            {profileData.save_for_later.map((id) => (
-              <li key={id} style={listItemStyles}>
-                Article ID: {id}
-              </li>
-            ))}
-          </ul>
-        </div>
+        <h1 className='mt-5 mx-3 display-4 align-self-start'>{profileData.name}'s Post</h1>
+        {articles.map((element)=> (<Post data={element}/>))}
       </div>
     </>
   );

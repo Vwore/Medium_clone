@@ -71,7 +71,11 @@ function MyProvider({ children }) {
   // if(x){setUser(true);}
 
   const fetchAllPosts = async () => {
-  setPosts(response);
+    console.log('fetch');
+    const x=localStorage.getItem('article');
+    const response=JSON.parse(x);
+    setPosts(response);
+  
   };
 
   const contextValue = {
@@ -86,14 +90,19 @@ function MyProvider({ children }) {
     catergory,
     setCatergory,
     curr_cat,
-    setCurr_cat
+    setCurr_cat,
   };
 
   useEffect(()=> {
+    setUser((localStorage.getItem('curuser'))!='null')   
+    console.log(localStorage.getItem('curuser')!='null');  
     var x=[];
-    response.map((element)=>(x.push(element.topic)));
-    setCatergory([...catergory,...x]);
-  },[]);
+    const data=JSON.parse(localStorage.getItem('article'))
+    data.map((element)=>{  
+      x.push(element[2])}
+      );
+    setCatergory([...x]);
+    },[]);
 
   return (
     <MyContext.Provider value={contextValue}>

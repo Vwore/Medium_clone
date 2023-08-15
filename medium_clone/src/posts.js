@@ -3,14 +3,14 @@ import React, { useContext, useEffect, useState } from "react";
 import { MyContext } from "./Mycontext.js";
 
 const Posts = () => {
-    const {fetchAllPosts,posts,setPosts,user,curr_cat} = useContext(MyContext);
-    const [topic_filter,setTopic_filter]=useState(false);
+    const {fetchAllPosts,posts,setPosts,user,curr_cat,instance} = useContext(MyContext);
     function filterpost()
     {
-        const x=posts.filter(value => (value.topic === curr_cat));
+        const x=posts.filter(value => (value[2] === curr_cat));
         setPosts(x);
     }
     useEffect(()=>{
+        // instance.get('/articles').then(response=> {console.log(response)});
         console.log(curr_cat);
         if(curr_cat=="" || curr_cat=="All post")
         {
@@ -26,8 +26,8 @@ const Posts = () => {
         }
         else
         {
-            fetchAllPosts();
             filterpost();
+            // setTimeout(filterpost, 1000);
             // fetch article by topic
             
         }
@@ -39,8 +39,9 @@ const Posts = () => {
         <div className="row pl-5">
             <div className="col-12">
                 {
+                    
                     posts.map((elemet)=>( 
-                    <Post article={elemet}/>))
+                    <Post data={elemet}/>))
                 }
                 {/* <Post article={article} />
                 <Post article={article} /> */}

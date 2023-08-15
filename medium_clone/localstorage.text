@@ -1,0 +1,40 @@
+ articles :  [{
+        "id"
+        "title",
+        "topic",
+        "description",
+        "author",
+        "post_likes",
+        "post_comments",
+        "minutes_to_read",
+        "published_at",
+        "created_at",
+        "updated_at",
+        "user_id"
+    }]
+
+    user[
+        [
+            userid,
+            name,
+            email,
+            password,
+            bio,
+            topic interseted [],
+        ]
+    ]
+
+    draft[
+        [id,title,topic,body,user_id]
+    ]
+
+    list[
+        [
+            id,
+            userid,
+            name,
+            [
+                list of articles
+            ]
+        ]
+    ]
