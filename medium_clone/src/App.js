@@ -1,10 +1,10 @@
-import Topics from "./Topics.js";
-import Home from "./Home.js"
-import Auth from "./Auth.js"
+import Topics from "./Topics/Topics.js";
+import Home from "./Home/Home.js"
+import Auth from "./Auth/Auth.js"
 import React, { useEffect } from "react"
 import { BrowserRouter as Router, Route,Switch, useLocation } from 'react-router-dom';
-import Create from "./Create.js"
-import Article from "./Article.js"
+import Create from "./CreateArticle/Create.js"
+import Article from "./Article/Article.js"
 import { MyProvider } from "./Mycontext.js"
 import axios from "axios";
 import Myprofile from "./myprofile/Myprofile.js";
@@ -81,12 +81,12 @@ const list=[
 const App= () => {     
     
     useEffect(()=> {
-        // localStorage.setItem('article',JSON.stringify(response));
-        // localStorage.setItem('users',JSON.stringify(userlist));
-        // localStorage.setItem('curuser',null);
-        // localStorage.setItem('draft','[]');
-        // localStorage.setItem('list',JSON.stringify(list));
-        // console.log(JSON.stringify(list));
+        localStorage.setItem('article',JSON.stringify(response));
+        localStorage.setItem('users',JSON.stringify(userlist));
+        localStorage.setItem('curuser',null);
+        localStorage.setItem('draft','[]');
+        localStorage.setItem('list',JSON.stringify(list));
+        console.log(JSON.stringify(list));
 
     },[]);
     return(

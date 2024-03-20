@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import './dropdown.css'; // You'll create this CSS file later
-import { MyContext } from './Mycontext';
+import { MyContext } from '../Mycontext';
 import { useHistory } from 'react-router';
 
 

@@ -1,12 +1,12 @@
-import blog from "./img/blog_logo.png"
+import blog from "../img/blog_logo.png"
 import styles from "./top_bar.css"
 import {useContext, useEffect, useState} from "react"
 import axios from 'axios';
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { MyContext } from "./Mycontext";
+import { MyContext } from "../Mycontext";
 import DropdownButton from "./dropdown";
-import Posts from "./posts";
+import Posts from "../Home/posts";
 
 
 const Top_bar =() => {
@@ -86,7 +86,7 @@ function handle_search(e)
                         <div className="text-center text-light fw-bold fs-5 pr-4">Blogs</div>
                         <input onChange={handle_search} value={search_value} type="text" className="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2" />
                         <button className="btn mx-3" onClick={()=> { history.push('/topic') }}>  topics</button>
-                        <button className="btn mx-3" onClick={()=> { history.push('/subscribe') }}> sadsad Subscribe</button>
+                        <button className="btn mx-3" onClick={()=> { history.push('/subscribe') }}> Subscribe</button>
                 </div>
                    {(user)?(
                    <div className="col-3 d-flex align-items-center justify-content-center">

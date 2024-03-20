@@ -1,7 +1,7 @@
 import React,{useContext, useState} from "react";
-import Top_bar from "./top_bar";
+import Top_bar from "../TopBar/top_bar";
 import './Topics.css'
-import { MyContext } from "./Mycontext";  
+import { MyContext } from "../Mycontext";  
 import { useHistory } from "react-router";
 
 const Topics=()=> {

@@ -1,25 +1,26 @@
-import imgs from "./img/image.webp"
-import saveforlater from './img/saveforlater.png'
+import imgs from "../img/image.webp"
+import saveforlater from '../img/saveforlater.png'
 import style from "./post.css"
 import React from "react";
 import jwtDecode from 'jwt-decode';
 import axios from "axios";
 import { useHistory } from "react-router";
 const Post = ({data}) => {
-    var article={
-      "id":data[0],
-      "title":data[1],
-      "topic": data[2],
-      "description": data[3],
-      "author": data[4],
-      "post_likes": data[5],
-      "post_comments": data[6],
-      "minutes_to_read": data[7],
-      "published_at": data[8],
-      "created_at": data[9],
-      "updated_at": data[10],
-      "user_id": data[11]
-  }
+    var article=data
+  //   {
+  //     "id":data[0],
+  //     "title":data[1],
+  //     "topic": data[2],
+  //     "description": data[3],
+  //     "author": data[4],
+  //     "post_likes": data[5],
+  //     "post_comments": data[6],
+  //     "minutes_to_read": data[7],
+  //     "published_at": data[8],
+  //     "created_at": data[9],
+  //     "updated_at": data[10],
+  //     "user_id": data[11]
+  // }
     const article_id=article.id;
     const history=useHistory();
     const jwt=localStorage.getItem('profile');

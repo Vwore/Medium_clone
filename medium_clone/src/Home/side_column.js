@@ -1,6 +1,6 @@
 import React,{useContext,useState} from "react";
 import { useHistory } from "react-router-dom";
-import { MyContext } from "./Mycontext";
+import { MyContext } from "../Mycontext";
 
 const Side_column = () => {
     const [formData, setFormData] = useState({

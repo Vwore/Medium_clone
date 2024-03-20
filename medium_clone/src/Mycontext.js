@@ -100,9 +100,14 @@ function MyProvider({ children }) {
 
   const fetchAllPosts = async () => {
     console.log('fetch');
-    const x=localStorage.getItem('article');
-    const response=JSON.parse(x);
-    setPosts(response);
+    // let x=localStorage.getItem('article')
+    let x
+    axios.get('http://localhost:3000/article').then((res)=>{console.log(res);setPosts(res.data); x=res}).catch((err)=> {
+      console.log('api errror'+err);
+      console.log(err)
+    })
+    // const response=JSON.parse(x);
+    
   
   };
 

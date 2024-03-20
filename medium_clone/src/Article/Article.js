@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import Top_bar from './top_bar';
+import React, { useState, useContext } from 'react';
+import Top_bar from '../TopBar/top_bar.js';
 import { useHistory, useLocation} from 'react-router-dom';
-import saveforlater from './img/saveforlater.png'
-import Listdrop from './addtolist';
+import saveforlater from '../img/saveforlater.png'
+import Listdrop from './addtolist.js';
+import { MyContext } from "../Mycontext.js";
+
 
 const Article = () => {
   const history=useHistory();
@@ -10,6 +12,8 @@ const Article = () => {
   const queryParams = new URLSearchParams(location.search);
   const id = queryParams.get('id');
   var isdelete=false;
+  const {posts} = useContext(MyContext);
+
   console.log(id);
 
   const[liked,setLiked]=useState(false);
@@ -18,15 +22,15 @@ const Article = () => {
   const[issaved,setIssaved]=useState(false);
   const[addlist,setAddlist]=useState(false);
 
-  const data=localStorage.getItem('article');
-  const data1=JSON.parse(data);
-  const data2=data1.filter(value=> (value[0]==id));
+  const data1=posts;
+  console.log('123', data1)
+  const data2=data1.filter(value=> (value.id==id));
   console.log(data2)
 
   // editform
-  const [title2, setTitle2] = useState(data2[0][1]);
-  const [body, setBody] = useState(data2[0][3]);
-  const [topic2, setTopic2] = useState(data2[0][2]);
+  const [title2, setTitle2] = useState(data2[0].title);
+  const [body, setBody] = useState(data2[0].body);
+  const [topic2, setTopic2] = useState(data2[0].topic);
   const handleTitleChange = (event) => {
     event.preventDefault();
     setTitle2(event.target.value);
@@ -71,19 +75,8 @@ const Article = () => {
     setIsedit(false);
   };
 
-  isdelete=(data2[0][11]==localStorage.getItem('curuser'));
-  const article={"id": data2[0][0],
-  "title": data2[0][1],
-  "topic": data2[0][2],
-  "description": data2[0][3],
-  "author": data2[0][4],
-  "post_likes": data2[0][5],
-  "post_comments": data2[0][6],
-  "minutes_to_read": data2[0][7],
-  "published_at": data2[0][8],
-  "created_at": data2[0][9],
-  "updated_at": data2[0][10],
-  "user_id": data2[0][11]};
+  isdelete=(data2[0].user_id==localStorage.getItem('curuser'));
+  const article=data2[0]
   console.log(article);
 
   const { title, topic, description, author, post_likes, post_comments, minutes_to_read, created_at } = article;

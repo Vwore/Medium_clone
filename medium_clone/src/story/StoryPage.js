@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react';
 import StoryList from './StoryList';
 import './styles.css'; 
-import Top_bar from '../top_bar';
-import Post from '../post';
+import Top_bar from '../TopBar/top_bar';
+import Post from '../Home/post';
 import { MyContext } from '../Mycontext';
 
 const draftStories = [

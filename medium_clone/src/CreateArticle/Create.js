@@ -2,7 +2,7 @@ import React from "react";
 import { useHistory } from "react-router";
 import { useState } from "react";
 import axios from 'axios';
-import Top_bar from "./top_bar";
+import Top_bar from "../TopBar/top_bar";
 
 
 const Create=()=>{
@@ -74,6 +74,26 @@ const Create=()=>{
        const data3=JSON.parse(data2);
        const x=data3.filter(value => (value[0] == localStorage.getItem('curuser')));
        const curdat=[(data1[data1.length-1][0]+1),title,topic,body,x[0][1],0,0,calculateReadingTime(body),formattedDateTime,formattedDateTime,formattedDateTime,x[0][0]];
+
+       //new
+       const user_detail=JSON.parse(localStorage.getItem('user'));
+       console.log('author', user_detail[1]);
+       const article= {
+        "title": title,
+        "topic": topic,
+        "description": body,
+        "author": user_detail[1],
+        "post_likes": "0",
+        "post_comments": "0",
+        "minutes_to_read": calculateReadingTime(body),
+        "created_at": formattedDateTime,
+        "updated_at": formattedDateTime,
+        "user_id": 1
+        }
+       
+        axios.post('http://localhost:3000/article', article).then((res) => {console.log(res.data)}).catch((err)=> console.log('error'+err))
+
+    //old
        data1.push(curdat);
        localStorage.setItem('article',JSON.stringify(data1));
        console.log('Title:', title);

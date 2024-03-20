@@ -1,4 +1,4 @@
-import Top_bar from "../top_bar"
+import Top_bar from "../TopBar/top_bar"
 import React from "react";
 import Stripe from "../stripe/Stripe";
 import { useState } from "react";

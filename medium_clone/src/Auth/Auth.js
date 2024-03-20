@@ -2,8 +2,8 @@ import React, { useContext, useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
-import Top_bar from "./top_bar";
-import { MyContext } from "./Mycontext";
+import Top_bar from "../TopBar/top_bar";
+import { MyContext } from "../Mycontext";
 
 
 const Auth = () =>{
@@ -64,6 +64,7 @@ const Auth = () =>{
         if(x[0][3]==password)
         {
           localStorage.setItem('curuser',x[0][0])
+          localStorage.setItem('user',JSON.stringify(x[0]))
           setUser(true);
           getlist();
           history.push('/');    

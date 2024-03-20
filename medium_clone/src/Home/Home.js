@@ -2,8 +2,8 @@ import Posts from "./posts.js"
 import Side_column from "./side_column.js"
 import { useContext, useEffect } from "react";
 import React from "react";
-import Top_bar from "./top_bar.js";
-import { MyContext } from "./Mycontext.js";
+import Top_bar from "../TopBar/top_bar.js";
+import { MyContext } from "../Mycontext.js";
 import axios from "axios";
 import Tabs from "./Tabs.js";
 

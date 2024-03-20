@@ -1,6 +1,6 @@
 import Post from "./post.js"
 import React, { useContext, useEffect, useState } from "react";
-import { MyContext } from "./Mycontext.js";
+import { MyContext } from "../Mycontext.js";
 
 const Posts = () => {
     const {fetchAllPosts,posts,setPosts,user,curr_cat,instance} = useContext(MyContext);

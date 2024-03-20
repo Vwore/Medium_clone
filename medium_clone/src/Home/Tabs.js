@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import './Tabs.css'; // You'll create this CSS file later
 import Posts from './posts';
-import { MyContext } from './Mycontext';
+import { MyContext } from '../Mycontext';
 
 const Tabs = () => {
   const [activeTab, setActiveTab] = useState(0);

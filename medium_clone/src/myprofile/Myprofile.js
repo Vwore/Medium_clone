@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Top_bar from '../top_bar';
-import Post from '../post';
+import Top_bar from '../TopBar/top_bar';
+import Post from '../Home/post';
 
 
 

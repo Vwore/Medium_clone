@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { useState } from "react";
 import { useHistory } from "react-router";
-import { MyContext } from "./Mycontext";
+import { MyContext } from "../Mycontext";
 const Listdrop=({articleid,setislist}) => {
     const [selectedValue, setSelectedValue] = useState('default');
     const {list,updatelist}=useContext(MyContext);
